@@ -1,4 +1,4 @@
-# Simple Pong clonethat plays in the browser using plain Javascript.
+# Simple Pong clone that plays in the browser using plain Javascript.
 
 Just open the pong.html file in a browser. Play using your mouse to move the left paddle. 3 points win the game. Have fun!
 
