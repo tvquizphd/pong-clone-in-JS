@@ -19,7 +19,7 @@ var paddle1Y = 250;
 var paddle2Y = 250;
 const PADDLE_HEIGHT = 100;
 const PADDLE_WIDTH = 10;
-const BALL_SIZE = 22;
+const BALL_SIZE = 44;
 
 function calculateMousePos(evt) {
   var rect = canvas.getBoundingClientRect();
