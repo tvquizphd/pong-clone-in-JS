@@ -115,12 +115,13 @@ function paddleSimulation(y, speed) {
   if (yCenter < ballY - 35) {
     return paddleMovement(y, {
       up: 0, down: 1, speed: speed
-    })
+    });
   } else if (yCenter > ballY + 35) {
     return paddleMovement(y, {
       up: 1, down: 0, speed: speed
-    })
+    });
   }
+  return y;
 }
 
 function paddleMovement(y, state) {
