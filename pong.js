@@ -161,7 +161,7 @@ function moveEverything() {
   ballY += ballSpeedY;
 
   // When ball hits left side of screen
-  if (ballX < 0 + PADDLE_WIDTH + BALL_SIZE) {
+  if (ballX < 0 + BALL_SIZE) {
     // If the ball hits the left paddle then it should bounce back
     if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) {
       ballSpeedX = -ballSpeedX;
@@ -176,7 +176,7 @@ function moveEverything() {
     }
   }
   // When ball hits right side of screen
-  if (ballX > canvas.width - PADDLE_WIDTH - BALL_SIZE) {
+  if (ballX > canvas.width - BALL_SIZE) {
     // If the ball hits the right paddle then it should bounce back
     if (ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT) {
       ballSpeedX = -ballSpeedX;
