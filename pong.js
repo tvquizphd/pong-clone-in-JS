@@ -145,7 +145,7 @@ function moveEverything() {
   }
   // So the left paddle plays with you
   if (!mousePlayerDetected) {
-    paddle1Y, paddleSimulation(paddle1Y, 2 ** DIFFICULTY);
+    paddle1Y = paddleSimulation(paddle1Y, 2 ** DIFFICULTY);
   }
 
   ballX += ballSpeedX;
