@@ -18,11 +18,11 @@ var mousePlayerDetected = false;
 var keyboardPlayerDetected = false;
 
 var clampPaddle = function (v) {
-  const minY = 0
+  const minY = - PADDLE_HEIGHT / 4
   if (!canvas) {
     return Math.max(minY, v)
   }
-  const maxY = canvas.height - PADDLE_HEIGHT
+  const maxY = canvas.height + minY
   return Math.min(maxY, Math.max(minY, v))
 }
 
