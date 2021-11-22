@@ -7,7 +7,9 @@ var ballSpeedY = 4;
 
 var player1Score = 0;
 var player2Score = 0;
-const WINNING_SCORE = 3;
+const WINNING_SCORE = 8;
+const paddle2SpeedY = 16;
+
 
 var showingWinScreen = false;
 //var game-over = false;
@@ -64,12 +66,12 @@ window.onload = function() {
     const maxY = canvas.height - minY
     // up 
     if (evt.keyCode == '38') {
-      paddle2Y = Math.max(minY, paddle2Y - ballSpeedY);
+      paddle2Y = Math.min(maxY, paddle2Y + paddle2SpeedY);
       return;
     }
     // down
     if (evt.keyCode == '40') {
-      paddle2Y = Math.min(maxY, paddle2Y + ballSpeedY);
+      paddle2Y = Math.max(minY, paddle2Y - paddle2SpeedY);
       return;
     }
   };
