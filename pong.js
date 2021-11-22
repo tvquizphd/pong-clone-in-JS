@@ -62,15 +62,15 @@ window.onload = function() {
   });
 
   document.onkeydown = function(evt) {
-    const minY = (PADDLE_HEIGHT / 2)
-    const maxY = canvas.height - minY
-    // up 
-    if (evt.keyCode == '38') {
+    const minY = 0
+    const maxY = canvas.height
+    // down
+    if (evt.keyCode == '40') {
       paddle2Y = Math.min(maxY, paddle2Y + paddle2SpeedY);
       return;
     }
-    // down
-    if (evt.keyCode == '40') {
+    // up
+    if (evt.keyCode == '38') {
       paddle2Y = Math.max(minY, paddle2Y - paddle2SpeedY);
       return;
     }
