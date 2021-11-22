@@ -8,7 +8,7 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 48;
+const paddle2SpeedY = 8;
 const paddle2State = {
    up: 0,
    down: 0
@@ -75,12 +75,11 @@ window.onload = function() {
     drawEverything();
   }, 1000 / framesPerSecond);
 
-  canvas.addEventListener("mousedown", handleMouseClick);
+  document.addEventListener("mousedown", handleMouseClick);
 
-  canvas.addEventListener("mousemove", function(evt) {
+  document.addEventListener("mousemove", function(evt) {
     var mousePos = calculateMousePos(evt);
-    // Determines which paddle is controlled by mouse
-    paddle1Y = mousePos.y - PADDLE_HEIGHT / 2;
+    paddle1Y = boundPaddle(mousePos.y - PADDLE_HEIGHT / 2);
   });
 
   // Detect paddle 2 press
@@ -115,9 +114,9 @@ function ballReset() {
 function computerMovement() {
   var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
   if (paddle2YCenter < ballY - 35) {
-    paddle2Y += 6;
+    paddle2State = {up: 0, down: 1}
   } else if (paddle2YCenter > ballY + 35) {
-    paddle2Y -= 6;
+    paddle2State = {up: 1, down: 0}
   }
 }
 
