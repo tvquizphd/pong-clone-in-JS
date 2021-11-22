@@ -226,10 +226,10 @@ function moveEverything() {
 
   // Keeps the ball bouncing off the top and bottom of the screen
   if (ballTop < 0) {
-    ballSpeedY = -ballSpeedY;
+    ballSpeedY = Math.abs(ballSpeedY);
   }
   if (ballBottom > canvas.height) {
-    ballSpeedY = -ballSpeedY;
+    ballSpeedY = -Math.abs(ballSpeedY);
   }
 }
 
