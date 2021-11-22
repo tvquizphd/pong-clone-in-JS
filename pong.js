@@ -8,10 +8,11 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
+const DIFFICULTY = 3;
 const paddle2State = {
    up: 0,
    down: 0,
-   speed: 16
+   speed: 30
 };
 var keyboardPlayerDetected = false;
 
@@ -134,7 +135,7 @@ function moveEverything() {
     paddle2Movement(paddle2State);
   }
   else {
-    paddle2Simulation(paddle2State.speed / 2);
+    paddle2Simulation(2 ** DIFFICULTY);
   }
 
   ballX += ballSpeedX;
@@ -150,6 +151,7 @@ function moveEverything() {
       ballSpeedY = deltaY * 0.35;
     } else {
       // Else the paddle missed and the other player scores a point
+      keyboardPlayerDetected = false;
       player2Score++;
       ballReset();
     }
@@ -164,6 +166,7 @@ function moveEverything() {
       ballSpeedY = deltaY * 0.35;
     } else {
       // Else the paddle missed and the other player scores a point
+      keyboardPlayerDetected = false;
       player1Score++;
       ballReset();
     }
