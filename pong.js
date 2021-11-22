@@ -183,8 +183,8 @@ function moveEverything() {
 
   const paddle1Limit = [paddle1Y, paddle1Y + PADDLE_HEIGHT]
   const midPaddle2Y = paddle1Y + PADDLE_HEIGHT / 2)
-  const paddle2Limit = [paddle1Y, paddle1Y + PADDLE_HEIGHT]
-  const midPaddle2Y = paddle1Y + PADDLE_HEIGHT / 2)
+  const paddle2Limit = [paddle2Y, paddle2Y + PADDLE_HEIGHT]
+  const midPaddle2Y = paddle2Y + PADDLE_HEIGHT / 2)
 
   // When ball hits left side of screen
   if (ballX < 0 + BALL_SIZE) {
