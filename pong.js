@@ -9,7 +9,7 @@ var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
 const paddle2SpeedY = 8;
-const paddle2State = {
+var paddle2State = {
    up: 0,
    down: 0
 };
