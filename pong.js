@@ -26,6 +26,27 @@ var clampPaddle = function (v) {
   return Math.min(maxY, Math.max(minY, v))
 }
 
+const overlap = function (a, b) {
+  return b[0] < a[1] && a[0] < b[1];
+};
+
+const quadRoots = function (a, b, c) {
+  var rootPart = Math.sqrt( (b * b) - (4 * a * c) );
+  var denom = 2 * a;
+  
+  return [
+    (-b - rootPart)/denom,
+    (-b + rootPart)/denom
+  ]
+};
+
+const atX = function (r, cx, cy, x, yLimits) {
+  var b = - 2 * cy
+  var c1 = (x - cx) ** 2
+  var c = c1 + (-cy) ** 2 - r ** 2
+  var roots = quadRoots(1, b, c)
+  return overlap(roots, yLimits)
+}
 
 var showingWinScreen = false;
 //var game-over = false;
@@ -160,10 +181,12 @@ function moveEverything() {
   ballX += ballSpeedX;
   ballY += ballSpeedY;
 
+  const paddleLimit = [paddle1Y, paddle1Y + PADDLE_HEIGHT]
+
   // When ball hits left side of screen
   if (ballX < 0 + BALL_SIZE) {
     // If the ball hits the left paddle then it should bounce back
-    if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) {
+    if (atX(BALL_SIZE, ballX, ballY, 0, paddleLimit)) {
       ballSpeedX = -ballSpeedX;
       // Adjust angle of ball based on where it hits the paddle
       var deltaY = ballY - (paddle1Y + PADDLE_HEIGHT / 2);
@@ -175,10 +198,11 @@ function moveEverything() {
       ballReset();
     }
   }
+
   // When ball hits right side of screen
   if (ballX > canvas.width - BALL_SIZE) {
     // If the ball hits the right paddle then it should bounce back
-    if (ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT) {
+    if (atX(BALL_SIZE, ballX, ballY, canvas.width, paddleLimit)) {
       ballSpeedX = -ballSpeedX;
       // Adjust angle of ball based on where it hits the paddle
       var deltaY = ballY - (paddle2Y + PADDLE_HEIGHT / 2);
