@@ -186,36 +186,31 @@ function moveEverything() {
   const paddle2Limit = [paddle2Y, paddle2Y + PADDLE_HEIGHT];
   const midPaddle2Y = paddle2Y + PADDLE_HEIGHT / 2;
 
-  // When ball hits left side of screen
-  if (ballX < 0 + BALL_SIZE) {
-    // If the ball hits the left paddle then it should bounce back
-    if (atX(BALL_SIZE, ballX, ballY, 0, paddle1Limit)) {
-      ballSpeedX = -ballSpeedX;
-      // Adjust angle of ball based on where it hits the paddle
-      var deltaY = ballY - midPaddle1Y;
-      ballSpeedY = deltaY * 0.35;
-    } else {
-      // Else the paddle missed and the other player scores a point
-      assumeAFK();
-      player2Score++;
-      ballReset();
-    }
+  // When ball past left side of screen
+  if (ballX < 0 + PADDLE_WIDTH) {
+    assumeAFK();
+    player2Score++;
+    ballReset();
   }
-
-  // When ball hits right side of screen
-  if (ballX > canvas.width - BALL_SIZE) {
-    // If the ball hits the right paddle then it should bounce back
-    if (atX(BALL_SIZE, ballX, ballY, canvas.width, paddle2Limit)) {
-      ballSpeedX = -ballSpeedX;
-      // Adjust angle of ball based on where it hits the paddle
-      var deltaY = ballY - midPaddle2Y;
-      ballSpeedY = deltaY * 0.35;
-    } else {
-      // Else the paddle missed and the other player scores a point
-      assumeAFK();
-      player1Score++;
-      ballReset();
-    }
+  // When ball past right side of screen
+  else if (ballX > canvas.width - PADDLE_WIDTH) {
+    assumeAFK();
+    player1Score++;
+    ballReset();
+  }
+  // If the ball hits the left paddle then it should bounce back
+  else if (atX(BALL_SIZE, ballX, ballY, 0, paddle1Limit)) {
+    ballSpeedX = -ballSpeedX;
+    // Adjust angle of ball based on where it hits the paddle
+    var deltaY = ballY - midPaddle1Y;
+    ballSpeedY = deltaY * 0.35;
+  }
+  // If the ball hits the right paddle then it should bounce back
+  else if (atX(BALL_SIZE, ballX, ballY, canvas.width, paddle2Limit)) {
+    ballSpeedX = -ballSpeedX;
+    // Adjust angle of ball based on where it hits the paddle
+    var deltaY = ballY - midPaddle2Y;
+    ballSpeedY = deltaY * 0.35;
   }
 
   // Keeps the ball bouncing off the top and bottom of the screen
