@@ -14,6 +14,7 @@ const paddle2State = {
    down: 0,
    speed: 30
 };
+var mousePlayerDetected = false;
 var keyboardPlayerDetected = false;
 
 var clampPaddle = function (v) {
@@ -71,6 +72,7 @@ window.onload = function() {
   document.addEventListener("mousedown", handleMouseClick);
 
   document.addEventListener("mousemove", function(evt) {
+    mousePlayerDetected = true;
     var mousePos = calculateMousePos(evt);
     paddle1Y = clampPaddle(mousePos.y - PADDLE_HEIGHT / 2);
   });
@@ -108,21 +110,25 @@ function ballReset() {
   }
 }
 
-function paddle2Simulation(speed) {
-  var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
-  if (paddle2YCenter < ballY - 35) {
-    paddle2Movement({up: 0, down: 1, speed: speed})
-  } else if (paddle2YCenter > ballY + 35) {
-    paddle2Movement({up: 1, down: 0, speed: speed})
+function paddleSimulation(y, speed) {
+  var yCenter = y + PADDLE_HEIGHT / 2;
+  if (yCenter < ballY - 35) {
+    return paddle2Movement(y, {
+      up: 0, down: 1, speed: speed
+    })
+  } else if (yCenter > ballY + 35) {
+    return paddle2Movement(y, {
+      up: 1, down: 0, speed: speed
+    })
   }
 }
 
-function paddle2Movement(state) {
+function paddleMovement(y, state) {
    const sign = [
       [0, +1],
       [-1, 0]
    ][state.up][state.down]
-   paddle2Y = clampPaddle(paddle2Y + sign * state.speed);
+   return clampPaddle(y + sign * state.speed);
 }
 
 function moveEverything() {
@@ -132,10 +138,14 @@ function moveEverything() {
 
   // So the right paddle plays with you
   if (keyboardPlayerDetected) {
-    paddle2Movement(paddle2State);
+    paddle2Y = paddleMovement(paddle2Y, paddle2State);
   }
   else {
-    paddle2Simulation(2 ** DIFFICULTY);
+    paddle2Y = paddle2Simulation(paddle2Y, 2 ** DIFFICULTY);
+  }
+  // So the left paddle plays with you
+  if (!mousePlayerDetected) {
+    paddle1Y, paddle1Simulation(paddle1Y, 2 ** DIFFICULTY);
   }
 
   ballX += ballSpeedX;
@@ -152,6 +162,7 @@ function moveEverything() {
     } else {
       // Else the paddle missed and the other player scores a point
       keyboardPlayerDetected = false;
+      mousePlayerDetected = false;
       player2Score++;
       ballReset();
     }
@@ -167,6 +178,7 @@ function moveEverything() {
     } else {
       // Else the paddle missed and the other player scores a point
       keyboardPlayerDetected = false;
+      mousePlayerDetected = false;
       player1Score++;
       ballReset();
     }
