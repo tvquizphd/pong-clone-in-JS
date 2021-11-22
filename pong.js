@@ -8,10 +8,11 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 8;
+const paddle2SpeedY = 16;
 const paddle2State = {
    up: 0,
-   down: 0
+   down: 0,
+   speed: paddle2SpeedY
 };
 var keyboardPlayerDetected = false;
 
@@ -107,12 +108,12 @@ function ballReset() {
   }
 }
 
-function paddle2Simulation() {
+function paddle2Simulation(speed) {
   var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
   if (paddle2YCenter < ballY - 35) {
-    paddle2Movement({up: 0, down: 1})
+    paddle2Movement({up: 0, down: 1, speed: speed})
   } else if (paddle2YCenter > ballY + 35) {
-    paddle2Movement({up: 1, down: 0})
+    paddle2Movement({up: 1, down: 0, speed: speed})
   }
 }
 
@@ -134,7 +135,7 @@ function moveEverything() {
     paddle2Movement(paddle2State);
   }
   else {
-    paddle2Simulation();
+    paddle2Simulation(paddle2SpeedY / 2);
   }
 
   ballX += ballSpeedX;
