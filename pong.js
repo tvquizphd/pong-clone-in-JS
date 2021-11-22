@@ -8,7 +8,7 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 48;
+const paddle2SpeedY = 100;
 
 
 var showingWinScreen = false;
