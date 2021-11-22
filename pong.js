@@ -124,6 +124,13 @@ function paddleSimulation(y, speed) {
   return y;
 }
 
+function assumeAFK() {
+  if (!paddle2State.up && !paddle2State.down) {
+    keyboardPlayerDetected = false;
+  }
+  mousePlayerDetected = false;
+}
+
 function paddleMovement(y, state) {
    const sign = [
       [0, +1],
@@ -162,8 +169,7 @@ function moveEverything() {
       ballSpeedY = deltaY * 0.35;
     } else {
       // Else the paddle missed and the other player scores a point
-      keyboardPlayerDetected = false;
-      mousePlayerDetected = false;
+      assumeAFK();
       player2Score++;
       ballReset();
     }
@@ -178,8 +184,7 @@ function moveEverything() {
       ballSpeedY = deltaY * 0.35;
     } else {
       // Else the paddle missed and the other player scores a point
-      keyboardPlayerDetected = false;
-      mousePlayerDetected = false;
+      assumeAFK();
       player1Score++;
       ballReset();
     }
