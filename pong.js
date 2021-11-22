@@ -211,14 +211,14 @@ function moveEverything() {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballY - midPaddle1Y;
-    ballSpeedY = deltaY * 0.35;
+    ballSpeedY = deltaY * 0.3;
   }
   // If the ball hits the right paddle then it should bounce back
   else if (ballRight > canvas.width && atX(BALL_SIZE, ballX, ballY, paddle2X, paddle2Limit)) {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballY - midPaddle2Y;
-    ballSpeedY = deltaY * 0.35;
+    ballSpeedY = deltaY * 0.3;
   }
 
   // Keeps the ball bouncing off the top and bottom of the screen
