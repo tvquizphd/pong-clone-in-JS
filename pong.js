@@ -9,11 +9,11 @@ var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
 const paddle2SpeedY = 8;
-var paddle2State = {
+const paddle2State = {
    up: 0,
    down: 0
 };
-
+var keyboardPlayerDetected = false;
 
 var clampPaddle = function (v) {
   const minY = 0
@@ -77,19 +77,23 @@ window.onload = function() {
   // Detect paddle 2 press
   document.onkeydown = function(evt) {
     if (evt.keyCode == '40') {
-      paddle2State.down = 1
+      keyboardPlayerDetected = true;
+      paddle2State.down = 1;
     }
     if (evt.keyCode == '38') {
-      paddle2State.up = 1
+      keyboardPlayerDetected = true;
+      paddle2State.up = 1;
     }
   };
   // Detect paddle 2 release
   document.onkeyup = function(evt) {
     if (evt.keyCode == '40') {
-      paddle2State.down = 0
+      keyboardPlayerDetected = true;
+      paddle2State.down = 0;
     }
     if (evt.keyCode == '38') {
-      paddle2State.up = 0
+      keyboardPlayerDetected = true;
+      paddle2State.up = 0;
     }
   };
 };
@@ -103,12 +107,12 @@ function ballReset() {
   }
 }
 
-function simulatePlayer2() {
+function paddle2Simulation() {
   var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
   if (paddle2YCenter < ballY - 35) {
-    paddle2State = {up: 0, down: 1}
+    paddle2Movement({up: 0, down: 1})
   } else if (paddle2YCenter > ballY + 35) {
-    paddle2State = {up: 1, down: 0}
+    paddle2Movement({up: 1, down: 0})
   }
 }
 
@@ -126,8 +130,12 @@ function moveEverything() {
   }
 
   // So the right paddle plays with you
-  simulatePlayer2();
-  paddle2Movement();
+  if (keyboardPlayerDetected) {
+    paddle2Movement(paddle2State);
+  }
+  else {
+    paddle2Simulation();
+  }
 
   ballX += ballSpeedX;
   ballY += ballSpeedY;
