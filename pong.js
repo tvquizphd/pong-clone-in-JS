@@ -52,7 +52,8 @@ function handleMouseClick(evt) {
   if (showingWinScreen) {
     player1Score = 0;
     player2Score = 0;
-    hideElement("you-won");
+    hideElement("p1-won");
+    hideElement("p2-won");
     hideElement("game-over");
     hideElement("continue");
     showingWinScreen = false;
@@ -219,9 +220,12 @@ function drawEverything() {
   if (showingWinScreen) {
     if (player1Score >= WINNING_SCORE) {
       // canvasContext.fillText("You Won!", 400, 300);
-      showElement("you-won");
+      showElement("p1-won");
     } else if (player2Score >= WINNING_SCORE) {
       // canvasContext.fillText("Game Over", 350, 300);
+      showElement("p2-won");
+    }
+    else {
       showElement("game-over");
     }
     // canvasContext.fillText("Click to continue", 350, 500);
