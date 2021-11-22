@@ -34,6 +34,10 @@ body {
   padding: 20px 0 20px 0;
 }
 
+.spriteSource {
+  display: none;
+}
+
 .playerScore {
   font-size: 30;
   position: absolute;
