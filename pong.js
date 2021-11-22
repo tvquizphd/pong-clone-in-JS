@@ -161,6 +161,19 @@ function paddleMovement(y, state) {
    return clampPaddle(y + sign * state.speed);
 }
 
+function clampSpeedY(speedY) {
+  const ballTop = ballY- BALL_SIZE;
+  const ballBottom = ballY + BALL_SIZE;
+  // Keeps the ball bouncing off the top and bottom of the screen
+  if (ballTop < 0) {
+    return Math.abs(speedY);
+  }
+  if (ballBottom > canvas.height) {
+    return -Math.abs(speedY);
+  }
+  return speedY;
+}
+
 function moveEverything() {
   if (showingWinScreen) {
     return;
@@ -189,8 +202,6 @@ function moveEverything() {
   const paddle1X = 0 + PADDLE_WIDTH;
   const paddle2X = canvas.width - PADDLE_WIDTH;
  
-  const ballTop = ballY- BALL_SIZE;
-  const ballBottom = ballY + BALL_SIZE;
   const ballLeft = ballX - BALL_SIZE;
   const ballRight = ballX + BALL_SIZE;
 
@@ -214,22 +225,14 @@ function moveEverything() {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballHit1Y - midPaddle1Y;
-    ballSpeedY = deltaY * 0.25;
+    ballSpeedY = clampSpeedY(deltaY * 0.25);
   }
   // If the ball hits the right paddle then it should bounce back
   else if (ballRight > canvas.width && atX(BALL_SIZE, ballX, ballY, paddle2X, paddle2Limit)) {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballHit2Y - midPaddle2Y;
-    ballSpeedY = deltaY * 0.25;
-  }
-
-  // Keeps the ball bouncing off the top and bottom of the screen
-  if (ballTop < 0) {
-    ballSpeedY = Math.abs(ballSpeedY);
-  }
-  if (ballBottom > canvas.height) {
-    ballSpeedY = -Math.abs(ballSpeedY);
+    ballSpeedY = clampSpeedY(deltaY * 0.25);
   }
 }
 
