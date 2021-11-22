@@ -162,7 +162,7 @@ function paddleMovement(y, state) {
 }
 
 function clampSpeedY(speedY) {
-  const ballTop = ballY- BALL_SIZE;
+  const ballTop = ballY - BALL_SIZE;
   const ballBottom = ballY + BALL_SIZE;
   // Keeps the ball bouncing off the top and bottom of the screen
   if (ballTop < 0) {
@@ -233,6 +233,9 @@ function moveEverything() {
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballHit2Y - midPaddle2Y;
     ballSpeedY = clampSpeedY(deltaY * 0.25);
+  }
+  else {
+    ballSpeedY = clampSpeedY(ballSpeedY)
   }
 }
 
