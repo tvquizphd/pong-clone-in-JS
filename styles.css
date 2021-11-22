@@ -44,6 +44,20 @@ body {
   position: absolute;
 }
 
+.instructions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.instructions > span {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
 #player1Score {
   top: 0px;
   left: 368px;
