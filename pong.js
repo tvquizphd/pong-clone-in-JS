@@ -8,7 +8,21 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 100;
+const paddle2SpeedY = 48;
+const paddle2State = {
+   up: 0,
+   down: 0
+};
+
+
+var clampPaddle = function (v) {
+  const minY = 0
+  if (!canvas) {
+    return Math.max(minY, v)
+  }
+  const maxY = canvas.height - PADDLE_HEIGHT
+  return Math.min(maxY, Math.max(minY, v))
+}
 
 
 var showingWinScreen = false;
@@ -30,6 +44,14 @@ function calculateMousePos(evt) {
     x: mouseX,
     y: mouseY
   };
+}
+
+function movePaddle2(state) {
+   const sign = [
+      [0, +1],
+      [-1, 0]
+   ][state.up][state.down]
+   paddle2Y = clampPaddle(paddle2Y + sign * paddle2SpeedY);
 }
 
 function handleMouseClick(evt) {
@@ -61,18 +83,22 @@ window.onload = function() {
     paddle1Y = mousePos.y - PADDLE_HEIGHT / 2;
   });
 
+  // Detect paddle 2 press
   document.onkeydown = function(evt) {
-    const minY = 0
-    const maxY = canvas.height - PADDLE_HEIGHT
-    // down
     if (evt.keyCode == '40') {
-      paddle2Y = Math.min(maxY, paddle2Y + paddle2SpeedY);
-      return;
+      paddle2State.down = 1
     }
-    // up
     if (evt.keyCode == '38') {
-      paddle2Y = Math.max(minY, paddle2Y - paddle2SpeedY);
-      return;
+      paddle2State.up = 1
+    }
+  };
+  // Detect paddle 2 release
+  document.onkeyup = function(evt) {
+    if (evt.keyCode == '40') {
+      paddle2State.down = 0
+    }
+    if (evt.keyCode == '38') {
+      paddle2State.up = 0
     }
   };
 };
@@ -101,7 +127,7 @@ function moveEverything() {
   }
 
   // So the right paddle plays with you
-  //computerMovement();
+  computerMovement();
 
   ballX += ballSpeedX;
   ballY += ballSpeedY;
