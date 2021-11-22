@@ -8,7 +8,7 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 16;
+const paddle2SpeedY = 48;
 
 
 var showingWinScreen = false;
@@ -63,7 +63,7 @@ window.onload = function() {
 
   document.onkeydown = function(evt) {
     const minY = 0
-    const maxY = canvas.height
+    const maxY = canvas.height - PADDLE_HEIGHT
     // down
     if (evt.keyCode == '40') {
       paddle2Y = Math.min(maxY, paddle2Y + paddle2SpeedY);
@@ -206,8 +206,7 @@ function colorRect(leftX, topY, width, height, drawColor) {
 }
 
 function colorCircle(centerX, centerY, radius, drawColor) {
-  canvasContext.fillStyle = drawColor;
-  canvasContext.beginPath();
-  canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-  canvasContext.fill();
+  const ballSprite = 'ping88';
+  const image = document.getElementById(ballSprite);
+  canvasContext.drawImage(image, 0, 0, 2*radius, 2*radius);
 }
