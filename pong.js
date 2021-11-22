@@ -57,8 +57,21 @@ window.onload = function() {
     var mousePos = calculateMousePos(evt);
     // Determines which paddle is controlled by mouse
     paddle1Y = mousePos.y - PADDLE_HEIGHT / 2;
-    // paddle2Y = mousePos.y - (PADDLE_HEIGHT / 2);
   });
+
+  canvas.addEventListener("keydown", function(evt) {
+    const minY = (PADDLE_HEIGHT / 2)
+    const maxY = canvas.height - minY
+    // up 
+    if (evt.keyCode == '38') {
+      paddle2Y = Math.max(minY, paddle2Y - ballSpeedY);
+      return;
+    }
+    // down
+    if (evt.keyCode == '40') {
+      paddle2Y = Math.min(maxY, paddle2Y + ballSpeedY);
+      return;
+    }
 };
 
 function ballReset() {
