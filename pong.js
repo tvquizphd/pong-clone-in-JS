@@ -113,11 +113,11 @@ function ballReset() {
 function paddleSimulation(y, speed) {
   var yCenter = y + PADDLE_HEIGHT / 2;
   if (yCenter < ballY - 35) {
-    return paddle2Movement(y, {
+    return paddleMovement(y, {
       up: 0, down: 1, speed: speed
     })
   } else if (yCenter > ballY + 35) {
-    return paddle2Movement(y, {
+    return paddleMovement(y, {
       up: 1, down: 0, speed: speed
     })
   }
