@@ -15,7 +15,7 @@ body {
   background-color: black;
 }
 
-#you-won {
+#p1-won, #p2-won {
   font-size: 6em;
   display: none;
   position: absolute;
