@@ -8,11 +8,10 @@ var ballSpeedY = 4;
 var player1Score = 0;
 var player2Score = 0;
 const WINNING_SCORE = 8;
-const paddle2SpeedY = 16;
 const paddle2State = {
    up: 0,
    down: 0,
-   speed: paddle2SpeedY
+   speed: 16
 };
 var keyboardPlayerDetected = false;
 
@@ -122,7 +121,7 @@ function paddle2Movement(state) {
       [0, +1],
       [-1, 0]
    ][state.up][state.down]
-   paddle2Y = clampPaddle(paddle2Y + sign * paddle2SpeedY);
+   paddle2Y = clampPaddle(paddle2Y + sign * state.speed);
 }
 
 function moveEverything() {
@@ -135,7 +134,7 @@ function moveEverything() {
     paddle2Movement(paddle2State);
   }
   else {
-    paddle2Simulation(paddle2SpeedY / 2);
+    paddle2Simulation(paddle2State.speed / 2);
   }
 
   ballX += ballSpeedX;
