@@ -46,14 +46,6 @@ function calculateMousePos(evt) {
   };
 }
 
-function movePaddle2(state) {
-   const sign = [
-      [0, +1],
-      [-1, 0]
-   ][state.up][state.down]
-   paddle2Y = clampPaddle(paddle2Y + sign * paddle2SpeedY);
-}
-
 function handleMouseClick(evt) {
   if (showingWinScreen) {
     player1Score = 0;
@@ -79,7 +71,7 @@ window.onload = function() {
 
   document.addEventListener("mousemove", function(evt) {
     var mousePos = calculateMousePos(evt);
-    paddle1Y = boundPaddle(mousePos.y - PADDLE_HEIGHT / 2);
+    paddle1Y = clampPaddle(mousePos.y - PADDLE_HEIGHT / 2);
   });
 
   // Detect paddle 2 press
@@ -111,7 +103,7 @@ function ballReset() {
   }
 }
 
-function computerMovement() {
+function simulatePlayer2() {
   var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
   if (paddle2YCenter < ballY - 35) {
     paddle2State = {up: 0, down: 1}
@@ -120,13 +112,22 @@ function computerMovement() {
   }
 }
 
+function paddle2Movement(state) {
+   const sign = [
+      [0, +1],
+      [-1, 0]
+   ][state.up][state.down]
+   paddle2Y = clampPaddle(paddle2Y + sign * paddle2SpeedY);
+}
+
 function moveEverything() {
   if (showingWinScreen) {
     return;
   }
 
   // So the right paddle plays with you
-  computerMovement();
+  simulatePlayer2();
+  paddle2Movement();
 
   ballX += ballSpeedX;
   ballY += ballSpeedY;
