@@ -22,7 +22,7 @@ var clampPaddle = function (v) {
   if (!canvas) {
     return Math.max(minY, v)
   }
-  const maxY = canvas.height + minY
+  const maxY = canvas.height - PADDLE_HEIGHT + minY
   return Math.min(maxY, Math.max(minY, v))
 }
 
