@@ -59,7 +59,7 @@ window.onload = function() {
     paddle1Y = mousePos.y - PADDLE_HEIGHT / 2;
   });
 
-  canvas.addEventListener("keydown", function(evt) {
+  document.onkeydown = function(evt) {
     const minY = (PADDLE_HEIGHT / 2)
     const maxY = canvas.height - minY
     // up 
@@ -72,6 +72,7 @@ window.onload = function() {
       paddle2Y = Math.min(maxY, paddle2Y + ballSpeedY);
       return;
     }
+  };
 };
 
 function ballReset() {
