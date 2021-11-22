@@ -182,7 +182,7 @@ function moveEverything() {
   ballY += ballSpeedY;
 
   const paddle1Limit = [paddle1Y, paddle1Y + PADDLE_HEIGHT];
-  const midPaddle2Y = paddle1Y + PADDLE_HEIGHT / 2;
+  const midPaddle1Y = paddle1Y + PADDLE_HEIGHT / 2;
   const paddle2Limit = [paddle2Y, paddle2Y + PADDLE_HEIGHT];
   const midPaddle2Y = paddle2Y + PADDLE_HEIGHT / 2;
 
