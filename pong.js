@@ -185,28 +185,30 @@ function moveEverything() {
   const midPaddle1Y = paddle1Y + PADDLE_HEIGHT / 2;
   const paddle2Limit = [paddle2Y, paddle2Y + PADDLE_HEIGHT];
   const midPaddle2Y = paddle2Y + PADDLE_HEIGHT / 2;
+  const ballLeft = ballX - BALL_SIZE;
+  const ballRight = ballX + BALL_SIZE;
 
   // When ball past left side of screen
-  if (ballX < 0 + PADDLE_WIDTH) {
+  if (ballX < 0) {
     assumeAFK();
     player2Score++;
     ballReset();
   }
   // When ball past right side of screen
-  else if (ballX > canvas.width - PADDLE_WIDTH) {
+  else if (ballX > canvas.width) {
     assumeAFK();
     player1Score++;
     ballReset();
   }
   // If the ball hits the left paddle then it should bounce back
-  else if (atX(BALL_SIZE, ballX, ballY, 0, paddle1Limit)) {
+  else if (ballLeft < 0 && atX(BALL_SIZE, ballX, ballY, 0, paddle1Limit)) {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballY - midPaddle1Y;
     ballSpeedY = deltaY * 0.35;
   }
   // If the ball hits the right paddle then it should bounce back
-  else if (atX(BALL_SIZE, ballX, ballY, canvas.width, paddle2Limit)) {
+  else if (ballRight > canvas.width && atX(BALL_SIZE, ballX, ballY, canvas.width, paddle2Limit)) {
     ballSpeedX = -ballSpeedX;
     // Adjust angle of ball based on where it hits the paddle
     var deltaY = ballY - midPaddle2Y;
