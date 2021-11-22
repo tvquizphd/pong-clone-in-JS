@@ -185,6 +185,8 @@ function moveEverything() {
   const midPaddle1Y = paddle1Y + PADDLE_HEIGHT / 2;
   const paddle2Limit = [paddle2Y, paddle2Y + PADDLE_HEIGHT];
   const midPaddle2Y = paddle2Y + PADDLE_HEIGHT / 2;
+  const ballTop = ballY- BALL_SIZE;
+  const ballBottom = ballY + BALL_SIZE;
   const ballLeft = ballX - BALL_SIZE;
   const ballRight = ballX + BALL_SIZE;
 
@@ -216,10 +218,10 @@ function moveEverything() {
   }
 
   // Keeps the ball bouncing off the top and bottom of the screen
-  if (ballY < 0) {
+  if (BallTop < 0) {
     ballSpeedY = -ballSpeedY;
   }
-  if (ballY > canvas.height) {
+  if (BallBottom > canvas.height) {
     ballSpeedY = -ballSpeedY;
   }
 }
