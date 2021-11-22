@@ -208,5 +208,5 @@ function colorRect(leftX, topY, width, height, drawColor) {
 function colorCircle(centerX, centerY, radius, drawColor) {
   const ballSprite = 'ping88';
   const image = document.getElementById(ballSprite);
-  canvasContext.drawImage(image, 0, 0, 2*radius, 2*radius);
+  canvasContext.drawImage(image, centerX-radius, centerY-radius, 2*radius, 2*radius);
 }
